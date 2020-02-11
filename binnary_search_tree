@@ -1,0 +1,43 @@
+class Node:
+    left_child,right_child=None,None
+    def __init__(self,val):
+        self.val=val
+        self.right_child=None
+        self.left_child=None
+
+class Tree:
+    def __init__(self,root):
+        self.root=Node(root)
+    def insert(self,val):
+        return self.insert_val(self.root,val)
+    def insert_val(self,current_node,val):
+        if current_node.val<val and current_node.right_child==None:
+            current_node.right_child=Node(val)
+        if current_node.val>val and current_node.left_child==None:
+            current_node.left_child=Node(val)
+        if current_node.val<val and current_node.right_child!=None:
+            return self.insert_val(current_node.right_child,val)
+        if current_node.val>val and current_node.left_child!=None:
+            return self.insert_val(current_node.left_child,val)
+    def find(self,val):
+        return self.find_node(self.root,val)
+    def find_node(self,current_node,val):
+        if current_node.val==val:
+            return True
+        elif current_node.val>val:
+            if current_node.left_child!=None:
+                return self.find_node(current_node.left_child,val)
+            else:
+                return False
+        elif current_node.val<val:
+            if current_node.right_child!=None:
+                return self.find_node(current_node.left_child,val)
+            else:
+                return False
+
+x=Tree(6)
+x.insert(4)
+x.insert(8)
+x.insert(12)
+x.insert(5)
+print(x.find(1))
