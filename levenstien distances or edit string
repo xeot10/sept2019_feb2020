@@ -1,0 +1,33 @@
+# june 29 2020 -- append with github xeot10 id
+# levenstien distance or edit string problems
+
+
+# the function edit return the minimum number of operation that we have to perform to convert string s1 to s2
+
+def edit(s1,s2):
+    n1=len(s1)
+    n2=len(s2)
+    x=[0]*(n1+1)
+    arr=[]
+    for i in range(n2+1):
+        arr.append(x[:])
+
+    for i in range(n1+1):    # the might change if the cost of insert or delete operation changes
+        arr[0][i]=i
+
+    for j in range(n2+1):    # the might change if the cost of insert or delete operation changes
+        arr[j][0]=j
+    for i in range(1,n2+1):
+        for j in range(1,n1+1):
+            x1=arr[i-1][j-1]
+            x2=arr[i-1][j]
+            x3=arr[i][j-1]
+            if s1[j-1]==s2[i-1]:
+                x1-=1
+            count=min(x1,x2,x3)+1
+            arr[i][j]=count
+    return count
+
+s1="manthan"
+s2="solanki"
+print(edit(s1,s2))
