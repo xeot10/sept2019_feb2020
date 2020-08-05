@@ -1,0 +1,37 @@
+# Depth first search -- jun 18 2020 just an over view of depth first search
+
+class Node:
+    def __init__(self,val):
+        self.val=val
+        self.children = []
+
+    def append_child(self,x):
+        self.children.append(Node(x))
+
+    def DFS(self):
+        arr=[]
+        self._dfs(self,arr)
+        return arr
+
+    def _dfs(self,curr_node,arr):
+        if len(curr_node.children)==0:
+            arr.append(curr_node.val)
+        else:
+            for i in range(len(curr_node.children)):
+                self._dfs(curr_node.children[i],arr)
+            arr.append(curr_node.val)
+
+
+# example -- should print array from 1-9
+
+# x=Node(9)
+# x.append_child(3)
+# x.append_child(5)
+# x.append_child(8)
+# x.children[0].append_child(1)
+# x.children[0].append_child(2)
+# x.children[1].append_child(4)
+# x.children[2].append_child(6)
+# x.children[2].append_child(7)
+
+# print(x.DFS())
