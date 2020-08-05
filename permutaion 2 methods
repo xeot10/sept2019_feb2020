@@ -1,0 +1,37 @@
+# june 10 revision of DSA
+# --have to append it with github's DSA of my xeot10 manthan id after completeion
+
+#  method - 1 upper bound : O(n^2*n!) time and O(n*n!) space - roughly
+
+l=list(map(int,input().split()))
+
+def get_permutation_method1(arr):
+    permutation = []
+    permutation_Helper(arr,[],permutation)
+    return permutation
+
+def permutation_Helper(arr, curr_permutation , permutation):
+    if not len(arr) and len(curr_permutation):
+        permutation.append(curr_permutation)
+    else:
+        for i in range(len(arr)):
+            new_arr  = arr[:i]+arr[i+1:]
+            new_permutation= curr_permutation + [arr[i]]
+            permutation_Helper(new_arr,new_permutation,permutation)
+
+# method - 2 O(n*n!) for both time and space - complexity same no. of call but only O(n)
+#           in for loop then previous method in which creation and deletion takes place
+
+def get_permutation_method2(arr):
+    permutation=[]
+    permutation_helper2(0,arr,permutation)
+    return permutation
+
+def permutation_helper2(i,arr,permutation):
+    if i==len(arr)-1:
+        permutation.append(arr[:])
+    else:
+        for j in range(i,len(arr)):
+            arr[i],arr[j]=arr[j],arr[i]              # hint swap double
+            permutation_helper2(i+1,arr,permutation)
+            arr[i], arr[j] = arr[j], arr[i]
